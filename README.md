@@ -1,39 +1,37 @@
->Please use branch ```flask-app``` for this task that already exist in your forked repository after you has been started task
-# flask-app
+# Flask GitHub Pull Requests Viewer
 
-Create a Flask web application that retrieves the information about the pull requests of https://github.com/boto/boto3 repository. 
+This project is a simple Flask web app that fetches and displays pull requests from a GitHub repository using the GitHub API.
 
+## Features
 
-Use GitHub REST API: https://docs.github.com/en/rest/pulls/pulls#list-pull-requests
+- Flask backend serving pull requests data  
+- Jinja2 template to render PRs as clickable links  
+- Unit tests covering API interaction  
+- Fully Dockerized for easy deployment
 
+## How It Works
 
-Flask application template is provided.
+1. **Flask App**  
+   The app defines routes to fetch pull requests (`open` or `closed`) from a specified GitHub repo, using a personal access token for authentication. Pull requests are shown in a styled HTML page.
 
-![](https://gitlab.com/epam-devops-lab/epm-practice-lab-python-tasks/-/raw/flask-app/app.png)
+2. **Jinja2 Template**  
+   Uses Jinja2 to render the pull requests list dynamically, showing PR titles, numbers, and links to GitHub.
 
-Execute the following commands to run application, e:
+3. **Unit Tests**  
+   Tests are implemented with `pytest` and `unittest.mock` to mock GitHub API responses, ensuring stable and isolated testing without real network calls.
 
-    $ pip install -r requirements.txt
-    $ python start.py
+4. **Dockerization**  
+   The app is containerized with a `Dockerfile` and managed via `docker-compose.yml`. Environment variables (like the GitHub token) are securely injected using a `.env` file. The Flask server is configured to listen on all interfaces (`0.0.0.0`) and the container exposes port 5000 mapped to a host port.
 
-Then, open a browser and enter URL: 
+## Setup & Run
 
-    http://127.0.0.1:5000/pull_requests
+1. Clone the repo  
+2. Create a `.env` file with your GitHub token:  
+   ```bash
+   TOKEN=your_github_personal_access_token
 
-The following columns have to be filled in _handlers/pull\_requests.py_:
-- Number of pull request
-- Title of pull request
-- Link to pull request
- 
-Press buttons to change request parameters:
-- ?state=open (PR state is open)
-- ?state=closed  (PR state is closed)
+3. Build and run the container:
+    `./build.sh
+    docker compose up`
 
-Use **per_page=100** parameter (default value is 30) to fetch pull requests records from the repository. 
-
-Avoid using any query parameters for GitHub API requests, except for `state` and `per_page`.
-
-Use Access token to reach repository  https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token. Set it as environment variable: 
-        
-    $ export TOKEN=<your token>
-
+4. Open your browser at http://localhost:5000 (or your mapped port) to see the pull requests.
