@@ -31,8 +31,8 @@ This project is a simple Flask web app that fetches and displays pull requests f
    TOKEN=your_github_personal_access_token
 
 3. Build and run the container:
-    `./build.sh`
    
+    `./build.sh`
     `docker compose up`
 
-5. Open your browser at http://localhost:5000 (or your mapped port) to see the pull requests.
+4. Open your browser at http://localhost:5000 (or your mapped port) to see the pull requests.
